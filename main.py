@@ -64,6 +64,9 @@ for d in data:
     
 print("=====Selecting record where note_id is 2=====")
 print(db_select_specific_note(conn, 2))
+a = db_select_specific_note(conn, 2)
+print(a)
+
 
 
 ### this can be applied to all aspects of notes, not just survey, functionally works
@@ -75,9 +78,39 @@ def db_update_survey(conn, title, survey, note_id):
     mycursor.execute(query, val)
     conn.commit()
 
-# invoking the function
-db_update_survey(conn, "Title1 - updated", "Survey1 - updated", "1")
+def db_update_review(conn, title, review, note_id):
+    conn.database = "db_notes"
+    mycursor = conn.cursor()
+    query = "UPDATE FINAL_new_tb SET title = %s, revieww = %s WHERE note_id = %s"
+    val = (title, review, note_id)
+    mycursor.execute(query, val)
+    conn.commit()
 
+def db_update_review(conn, title, review, note_id):
+    conn.database = "db_notes"
+    mycursor = conn.cursor()
+    query = "UPDATE FINAL_new_tb SET title = %s, revieww = %s WHERE note_id = %s"
+    val = (title, review, note_id)
+    mycursor.execute(query, val)
+    conn.commit()
+
+
+# FUNCTION FOR UPDATING SQ3R in db
+def db_update_all(conn, title,chapter,survey,question,read ,review,recite, note_id):
+    conn.database = "db_notes"
+    mycursor = conn.cursor()
+    query = "UPDATE FINAL_new_tb SET title = %s,chapter = %s, survey = %s,question = %s,readd = %s, revieww = %s, recitee = %s WHERE note_id = %s"
+    val = (title,chapter,survey,question,read, review,recite, note_id)
+    mycursor.execute(query, val)
+    conn.commit()
+
+db_update_all(conn, "fake title","fake chapter","fake survey" ,"fake question","fake read","fake review","fake recite", "1")
+
+# invoking the function
+#db_update_survey(conn, "Title1 - updated", "Survey1 - updated", "1")
+
+rand_review = "attempt 2"
+#db_update_review(conn, "Title2 - updated", rand_review, "2")
 
 def db_delete_note(conn, note_id):
     conn.database = "db_notes"
@@ -93,3 +126,4 @@ def db_delete_note(conn, note_id):
 
 
 #ALL above functions work as wanted
+
