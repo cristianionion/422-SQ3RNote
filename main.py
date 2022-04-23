@@ -20,27 +20,28 @@ def db_create_table(conn, book):
     db_create_db(conn)
     conn.database = "db_notes"
     mycursor = conn.cursor()
-    query = "CREATE TABLE IF NOT EXISTS "+str(book)+" (title VARCHAR(2000),chapter VARCHAR(2000), notes VARCHAR(2000), question VARCHAR(2000))"
+    query = "CREATE TABLE IF NOT EXISTS "+str(book)+" (chapter VARCHAR(2000), notes VARCHAR(2000), question VARCHAR(2000))"
     mycursor.execute(query)
     
 # small test
-bookinput = "book20"
+bookinput = "book160"
 db_create_table(conn, bookinput)
 
 
 # insert note function so that we can insert data into the database
 
-def db_insert_note(conn,table, title,chapter,notes, question):
+
+def db_insert_note(conn,table,chapter,notes, question):
     conn.database = "db_notes"
     mycursor = conn.cursor()
-    query = "INSERT INTO "+str(table)+" (title, chapter,notes,question) VALUES (%s,%s,%s,%s)"
-    val = (title,chapter,notes, question)
+    query = "INSERT INTO "+str(table)+" (chapter,notes,question) VALUES (%s,%s,%s)"
+    val = (chapter,notes, question)
     mycursor.execute(query, val)
     conn.commit()
     return mycursor.lastrowid
 
 #small test
-db_insert_note(conn, bookinput,"t","c3","n","q")
+db_insert_note(conn, bookinput,"chap1","n","q")
     
 
 # FUNCTION FOR UPDATING SQ3R in db
@@ -53,7 +54,7 @@ def db_update_all(conn,table, notes, question, chapter):
     conn.commit()
 
 #small test
-db_update_all(conn,bookinput, "fake notes" ,"fake question","c")
+db_update_all(conn,bookinput, "fake notes" ,"fake question","chap")
 
 
 # function to retrieve all data from the database
@@ -68,12 +69,15 @@ def db_select_all_notes(conn,table):
 def db_select_specific_note(conn,table, chapter):
     conn.database = "db_notes"
     mycursor = conn.cursor()
-    mycursor.execute("SELECT title,chapter, notes,question FROM "+str(table)+" WHERE chapter = " + str(chapter))
+    print("THIS IS WHAT IT THINKS chapter is: ", str(chapter))
+    print("THIS IS WHAT IT THINKS TABLE is: ", table)
+    mycursor.execute("SELECT * FROM "+str(table)+" WHERE chapter= "+ str(chapter))
     return mycursor.fetchone()
 
 #small tests
 print(db_select_all_notes(conn,bookinput))
-print(db_select_specific_note(conn,bookinput,2))
+chap = 'chap'
+#print("THIS SHOULD WORK: ",db_select_specific_note(conn,bookinput,chap))
 
 # function to delete notes in database
 def db_delete_note(conn,table, chapter):
@@ -85,3 +89,11 @@ def db_delete_note(conn,table, chapter):
     conn.commit()
 
 #db_delete_note(conn,bookinput,"3")
+
+def db_get_tables(conn):
+    conn.database = "db_notes"
+    mycursor = conn.cursor()
+    mycursor.execute("SHOW TABLES FROM db_notes")
+    return mycursor.fetchall()
+
+print(db_get_tables(conn))
