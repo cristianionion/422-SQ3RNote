@@ -1,6 +1,5 @@
 # Importing tkinter module
 from tkinter import *
-from tkinter import *
 from tkinter import messagebox, filedialog
 import os
 
@@ -52,11 +51,8 @@ def openFile():
         textArea.insert(1.0, file.read())
         file.close()
 
-def create():
-    win = Toplevel(root)
-    win.geometry('800x800')
-    win.title("New Book")
-    Label(win, text="Hey, How Are you?").pack()
+def saveFile():
+
 
 # Creating a tkinter window
 root = Tk()
