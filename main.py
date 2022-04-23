@@ -24,7 +24,7 @@ def db_create_table(conn, book):
     mycursor.execute(query)
     
 # small test
-bookinput = "book160"
+bookinput = "book20"
 db_create_table(conn, bookinput)
 
 
@@ -41,7 +41,7 @@ def db_insert_note(conn,table,chapter,notes, question):
     return mycursor.lastrowid
 
 #small test
-db_insert_note(conn, bookinput,"chap1","n","q")
+db_insert_note(conn, bookinput,"chap212","n","q")
     
 
 # FUNCTION FOR UPDATING SQ3R in db
@@ -71,13 +71,17 @@ def db_select_specific_note(conn,table, chapter):
     mycursor = conn.cursor()
     print("THIS IS WHAT IT THINKS chapter is: ", str(chapter))
     print("THIS IS WHAT IT THINKS TABLE is: ", table)
-    mycursor.execute("SELECT * FROM "+str(table)+" WHERE chapter= "+ str(chapter))
+    query = "SELECT * FROM "+str(table)+" WHERE chapter = %s"
+    adr = (chapter,)
+    print("CHAP TYPE: ", type(chapter), "QUERY TYPE: ", type(query))
+    print("THIS IS WHAT QUERY IS: ","SELECT * FROM "+str(table)+" WHERE chapter = chap")
+    mycursor.execute(query,adr)
     return mycursor.fetchone()
 
 #small tests
 print(db_select_all_notes(conn,bookinput))
-chap = 'chap'
-#print("THIS SHOULD WORK: ",db_select_specific_note(conn,bookinput,chap))
+chap = 'chap21'
+print("THIS SHOULD WORK: ",db_select_specific_note(conn,bookinput,chap))
 
 # function to delete notes in database
 def db_delete_note(conn,table, chapter):
