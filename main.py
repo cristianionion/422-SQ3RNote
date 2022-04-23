@@ -14,38 +14,38 @@ def db_create_table(conn, book):
     db_create_db(conn)
     conn.database = "db_notes"
     mycursor = conn.cursor()
-    query = "CREATE TABLE IF NOT EXISTS "+str(book)+" (note_id INT AUTO_INCREMENT PRIMARY KEY, title VARCHAR(2000),chapter VARCHAR(2000), survey VARCHAR(2000), question VARCHAR(2000), readd VARCHAR(2000), revieww VARCHAR(2000), recitee VARCHAR(2000))"
+    query = "CREATE TABLE IF NOT EXISTS "+str(book)+" (title VARCHAR(2000),chapter VARCHAR(2000), notes VARCHAR(2000), question VARCHAR(2000))"
     mycursor.execute(query)
     
 # small test
-bookinput = "book2"
+bookinput = "book20"
 db_create_table(conn, bookinput)
 
 
-def db_insert_note(conn,table, title,chapter, survey, question, readd, revieww, recitee):
+def db_insert_note(conn,table, title,chapter,notes, question):
     conn.database = "db_notes"
     mycursor = conn.cursor()
-    query = "INSERT INTO "+str(table)+" (title, chapter,survey,question,readd,revieww,recitee) VALUES (%s, %s,%s,%s,%s,%s,%s)"
-    val = (title,chapter, survey, question, readd, revieww, recitee)
+    query = "INSERT INTO "+str(table)+" (title, chapter,notes,question) VALUES (%s,%s,%s,%s)"
+    val = (title,chapter,notes, question)
     mycursor.execute(query, val)
     conn.commit()
     return mycursor.lastrowid
 
 #small test
-db_insert_note(conn, bookinput,"t","c","s","q","r","r","r")
+db_insert_note(conn, bookinput,"t","c3","n","q")
     
 
 # FUNCTION FOR UPDATING SQ3R in db
-def db_update_all(conn,table, title,chapter,survey,question,read ,review,recite, note_id):
+def db_update_all(conn,table, notes, question, chapter):
     conn.database = "db_notes"
     mycursor = conn.cursor()
-    query = "UPDATE "+str(table)+" SET title = %s,chapter = %s, survey = %s,question = %s,readd = %s, revieww = %s, recitee = %s WHERE note_id = %s"
-    val = (title,chapter,survey,question,read, review,recite, note_id)
+    query = "UPDATE "+str(table)+" SET notes = %s,question = %s WHERE chapter = %s"
+    val = (notes,question,chapter)
     mycursor.execute(query, val)
     conn.commit()
 
 #small test
-db_update_all(conn,bookinput, "fake title","fake chapter","fake survey" ,"fake question","fake read","fake review","fake recite", "1")
+db_update_all(conn,bookinput, "fake notes" ,"fake question","c")
 
 
 
@@ -56,12 +56,10 @@ def db_select_all_notes(conn,table):
     mycursor.execute(query)
     return mycursor.fetchall()
 
-def db_select_specific_note(conn,table, note_id):
-    print(note_id, "THIS IS THE NOTE ID")
-    print("AHAHAHAHA", "nodeID"+str(note_id))
+def db_select_specific_note(conn,table, chapter):
     conn.database = "db_notes"
     mycursor = conn.cursor()
-    mycursor.execute("SELECT title,chapter, survey,question, readd, revieww, recitee FROM "+str(table)+" WHERE note_id = " + str(note_id))
+    mycursor.execute("SELECT title,chapter, notes,question FROM "+str(table)+" WHERE chapter = " + str(chapter))
     return mycursor.fetchone()
 
 #small tests
@@ -69,11 +67,11 @@ print(db_select_all_notes(conn,bookinput))
 print(db_select_specific_note(conn,bookinput,2))
 
 
-def db_delete_note(conn,table, note_id):
+def db_delete_note(conn,table, chapter):
     conn.database = "db_notes"
     mycursor = conn.cursor()
-    query = "DELETE FROM "+str(table)+" WHERE note_id = %s"
-    adr = (note_id,)
+    query = "DELETE FROM "+str(table)+" WHERE chapter = %s"
+    adr = (chapter,)
     mycursor.execute(query, adr)
     conn.commit()
 
