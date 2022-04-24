@@ -2,6 +2,7 @@
 # import the sql driver
 import mysql.connector
 
+#conn connects to the mysql server
 conn = mysql.connector.connect(host="localhost", port=3306, user="root", passwd="")
 
 # create the database if it does not exist
@@ -13,9 +14,9 @@ def createDatabase(conn):
 createDatabase(conn)
 
 
-# create the database tables
+# create the database tables for each book
 # which will include, book title, chapter title, notes, and questions
-
+# table name must be 64 characters long or shorter, and cannot have spaces in the name
 def createTable(conn, book):
     createDatabase(conn)
     conn.database = "db_notes"
@@ -24,12 +25,11 @@ def createTable(conn, book):
     mycursor.execute(query)
     
 # small test
-bookinput = "book20"
+bookinput = "a234567890123456789012345678901234567890123456789012345678901234"
 createTable(conn, bookinput)
 
 
-# insert note function so that we can insert data into the database
-
+# add note function so that we can insert data into the database
 
 def addNote(conn,table,chapter,notes, question):
     conn.database = "db_notes"
@@ -42,9 +42,12 @@ def addNote(conn,table,chapter,notes, question):
 
 #small test
 addNote(conn, bookinput,"chap212","n","q")
+addNote(conn,bookinput, "chapter 3", "notess","qqqqqqqqqs")
+addNote(conn,bookinput,"c11", "so many written notes", "no questions")
+addNote(conn,bookinput,"section5", "write right rite","queue quest")
     
 
-# FUNCTION FOR UPDATING SQ3R in db
+# FUNCTION FOR UPDATING WHOLE CHAPTER NOTES in db
 def updateNote(conn,table, notes, question, chapter):
     conn.database = "db_notes"
     mycursor = conn.cursor()
@@ -54,7 +57,7 @@ def updateNote(conn,table, notes, question, chapter):
     conn.commit()
 
 #small test
-updateNote(conn,bookinput, "fake notes" ,"fake question","chap21")
+updateNote(conn,bookinput, "fake notes" ,"fake question","c11")
 
 
 # function to retrieve all data from the database
@@ -66,6 +69,7 @@ def selectAll(conn,table):
     return mycursor.fetchall()
 
 # function to retrieve specific data from the database
+# can be used to check if a chapter already has notes or not
 def selectOne(conn,table, chapter):
     conn.database = "db_notes"
     mycursor = conn.cursor()
@@ -79,9 +83,10 @@ def selectOne(conn,table, chapter):
     return mycursor.fetchone()
 
 #small tests
-print(selectAll(conn,bookinput))
+#print(selectAll(conn,bookinput))
 chap = 'chap21'
-print("THIS SHOULD WORK: ",selectOne(conn,bookinput,chap))
+print("THIS SHOULD WORK: ",selectOne(conn,bookinput,chap),type(selectOne(conn,bookinput,chap)))
+print("THIS should NOT WORK: ",selectOne(conn,bookinput,"chapternotreal"),type(selectOne(conn,bookinput,"chapternotreal")))
 
 # function to delete notes in database
 def deleteNote(conn,table, chapter):
@@ -94,6 +99,7 @@ def deleteNote(conn,table, chapter):
 
 #deleteNote(conn,bookinput,"3")
 
+# function to display all tables (book titles) that are saved in the database
 def getTables(conn):
     conn.database = "db_notes"
     mycursor = conn.cursor()
@@ -101,3 +107,4 @@ def getTables(conn):
     return mycursor.fetchall()
 
 print(getTables(conn))
+
