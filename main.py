@@ -112,6 +112,7 @@ def db_convert_to_dictionary():
     book = getTables(conn)
     #print(book)
     #print(len(book))
+    print(len(book))
     book_dict = {}
     if book == None:
         return book_dict
@@ -122,7 +123,7 @@ def db_convert_to_dictionary():
         chapter_information = selectAll(conn, book_name)[0]
         #print(chapter_information)
         chapter_key = chapter_information[1]
-        print(chapter_key)
+        #print(book_name)
         chapter_notes_questions = (chapter_information[2], chapter_information[3])
         #print(chapter_notes_questions)
         #print(chapter_dict)
@@ -130,5 +131,7 @@ def db_convert_to_dictionary():
         #print(chapter_dict)
         book_dict[book_name] = chapter_dict
     return book_dict
+
+#print(db_convert_to_dictionary())
 
 
