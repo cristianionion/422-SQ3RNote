@@ -25,14 +25,13 @@ def createTable(conn, book):
     mycursor.execute(query)
     
 # small test
-bookinput = "fakebook"
+bookinput = "fakebook2"
 createTable(conn, bookinput)
 
 
 # add note function so that we can insert data into the database
 
 def addNote(conn,table,chapter,notes, question):
-    title = table
     conn.database = "db_notes"
     mycursor = conn.cursor()
     query = "INSERT INTO "+str(table)+" (title,chapter,notes,question) VALUES (%s,%s,%s,%s)"
@@ -42,10 +41,10 @@ def addNote(conn,table,chapter,notes, question):
     return mycursor.lastrowid
 
 #small test
-#addNote(conn, bookinput,"chap212","n","q")
-#addNote(conn,bookinput,"chapter 3", "notess","qqqqqqqqqs")
-#addNote(conn,bookinput,"c11", "so many written notes", "no questions")
-#addNote(conn,bookinput,"section5", "write right rite","queue quest")
+addNote(conn, bookinput,"chap212","n","q")
+addNote(conn,bookinput,"chapter 3", "notess","qqqqqqqqqs")
+addNote(conn,bookinput,"c11", "so many written notes", "no questions")
+addNote(conn,bookinput,"section5", "write right rite","queue quest")
     
 
 # FUNCTION FOR UPDATING WHOLE CHAPTER NOTES in db
@@ -107,7 +106,15 @@ def getTables(conn):
     mycursor.execute("SHOW TABLES FROM db_notes")
     return mycursor.fetchall()
 
-#print(getTables(conn))
+print(getTables(conn), type(getTables(conn)))
+# getTables returns type == list
+books = getTables(conn)
+for i in range(len(books)):
+    #print(len(books))
+    #print(books[i][0])
+    print(selectAll(conn,books[i][0]))
+
+
 
 def db_convert_to_dictionary():
     book = getTables(conn)
