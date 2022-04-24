@@ -25,8 +25,8 @@ def createTable(conn, book):
     mycursor.execute(query)
     
 # small test
-bookinput = "a234567890123456789012345678901234567890123456789012345678901234"
-createTable(conn, bookinput)
+#bookinput = "a234567890123456789012345678901234567890123456789012345678901234"
+#createTable(conn, bookinput)
 
 
 # add note function so that we can insert data into the database
@@ -41,10 +41,10 @@ def addNote(conn,table,chapter,notes, question):
     return mycursor.lastrowid
 
 #small test
-addNote(conn, bookinput,"chap212","n","q")
-addNote(conn,bookinput, "chapter 3", "notess","qqqqqqqqqs")
-addNote(conn,bookinput,"c11", "so many written notes", "no questions")
-addNote(conn,bookinput,"section5", "write right rite","queue quest")
+#addNote(conn, bookinput,"chap212","n","q")
+#addNote(conn,bookinput, "chapter 3", "notess","qqqqqqqqqs")
+#addNote(conn,bookinput,"c11", "so many written notes", "no questions")
+#addNote(conn,bookinput,"section5", "write right rite","queue quest")
     
 
 # FUNCTION FOR UPDATING WHOLE CHAPTER NOTES in db
@@ -57,7 +57,7 @@ def updateNote(conn,table, notes, question, chapter):
     conn.commit()
 
 #small test
-updateNote(conn,bookinput, "fake notes" ,"fake question","c11")
+#updateNote(conn,bookinput, "fake notes" ,"fake question","c11")
 
 
 # function to retrieve all data from the database
@@ -84,9 +84,9 @@ def selectOne(conn,table, chapter):
 
 #small tests
 #print(selectAll(conn,bookinput))
-chap = 'chap21'
-print("THIS SHOULD WORK: ",selectOne(conn,bookinput,chap),type(selectOne(conn,bookinput,chap)))
-print("THIS should NOT WORK: ",selectOne(conn,bookinput,"chapternotreal"),type(selectOne(conn,bookinput,"chapternotreal")))
+#chap = 'chap21'
+#print("THIS SHOULD WORK: ",selectOne(conn,bookinput,chap),type(selectOne(conn,bookinput,chap)))
+#print("THIS should NOT WORK: ",selectOne(conn,bookinput,"chapternotreal"),type(selectOne(conn,bookinput,"chapternotreal")))
 
 # function to delete notes in database
 def deleteNote(conn,table, chapter):
@@ -106,5 +106,27 @@ def getTables(conn):
     mycursor.execute("SHOW TABLES FROM db_notes")
     return mycursor.fetchall()
 
-print(getTables(conn))
+#print(getTables(conn))
 
+def db_convert_to_dictionary():
+    book = getTables(conn)
+    #print(book)
+    #print(len(book))
+    book_dict = {}
+    if book == None:
+        return book_dict
+    for index in range(len(book)):
+        chapter_dict = {}
+        book_name = book[index][0]
+        #print(book_name)
+        chapter_information = selectAll(conn, book_name)[0]
+        #print(chapter_information)
+        chapter_key = chapter_information[1]
+        #print(chapter_key)
+        chapter_notes_questions = (chapter_information[2], chapter_information[3])
+        #print(chapter_notes_questions)
+        #print(chapter_dict)
+        chapter_dict[chapter_key] = chapter_notes_questions
+        #print(chapter_dict)
+        book_dict[book_name] = chapter_dict
+    return book_dict
