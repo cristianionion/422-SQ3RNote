@@ -21,28 +21,29 @@ def createTable(conn, book):
     createDatabase(conn)
     conn.database = "db_notes"
     mycursor = conn.cursor()
-    query = "CREATE TABLE IF NOT EXISTS "+str(book)+" (chapter VARCHAR(2000), notes VARCHAR(2000), question VARCHAR(2000))"
+    query = "CREATE TABLE IF NOT EXISTS "+str(book)+" (title VARCHAR(2000), chapter VARCHAR(2000), notes VARCHAR(2000), question VARCHAR(2000))"
     mycursor.execute(query)
     
 # small test
-#bookinput = "a234567890123456789012345678901234567890123456789012345678901234"
-#createTable(conn, bookinput)
+bookinput = "fakebook"
+createTable(conn, bookinput)
 
 
 # add note function so that we can insert data into the database
 
 def addNote(conn,table,chapter,notes, question):
+    title = table
     conn.database = "db_notes"
     mycursor = conn.cursor()
-    query = "INSERT INTO "+str(table)+" (chapter,notes,question) VALUES (%s,%s,%s)"
-    val = (chapter,notes, question)
+    query = "INSERT INTO "+str(table)+" (title,chapter,notes,question) VALUES (%s,%s,%s,%s)"
+    val = (table,chapter,notes, question)
     mycursor.execute(query, val)
     conn.commit()
     return mycursor.lastrowid
 
 #small test
 #addNote(conn, bookinput,"chap212","n","q")
-#addNote(conn,bookinput, "chapter 3", "notess","qqqqqqqqqs")
+#addNote(conn,bookinput,"chapter 3", "notess","qqqqqqqqqs")
 #addNote(conn,bookinput,"c11", "so many written notes", "no questions")
 #addNote(conn,bookinput,"section5", "write right rite","queue quest")
     
@@ -84,7 +85,7 @@ def selectOne(conn,table, chapter):
 
 #small tests
 #print(selectAll(conn,bookinput))
-#chap = 'chap21'
+#chap = 'chap11'
 #print("THIS SHOULD WORK: ",selectOne(conn,bookinput,chap),type(selectOne(conn,bookinput,chap)))
 #print("THIS should NOT WORK: ",selectOne(conn,bookinput,"chapternotreal"),type(selectOne(conn,bookinput,"chapternotreal")))
 
