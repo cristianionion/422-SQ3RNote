@@ -7,7 +7,7 @@ https://levelup.gitconnected.com/build-a-note-taking-app-with-mysql-backend-in-p
 import mysql.connector
 
 #conn connects to the mysql server
-conn = mysql.connector.connect(host="localhost", port=3306, user="root", passwd="passpass")
+conn = mysql.connector.connect(host="localhost", port=3306, user="root", passwd="")
 
 # create the database if it does not exist
 def createDatabase(conn):
@@ -101,6 +101,23 @@ def deleteNote(conn,table, chapter):
     adr = (chapter,)
     mycursor.execute(query, adr)
     conn.commit()
+
+def deleteBook(conn,table):
+    table = table.replace(" ","あ")
+    print(table)
+    conn.database = "db_notes"
+    mycursor = conn.cursor()
+    query = "DROP TABLE "+str(table)
+    print(query)
+    mycursor.execute(query)
+    conn.commit()
+
+#createTable(conn, "maybe")
+#createTable(conn, "maybe1")
+#createTable(conn, "maybe2")
+#deleteBook(conn, "maybe2")
+
+
 
 #deleteNote(conn,bookinput,"3")
 
