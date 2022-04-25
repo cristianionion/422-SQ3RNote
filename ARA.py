@@ -5,6 +5,10 @@ Created on: 4/10/2022
 Last modified on: 4/25/2022
 Description: This is the code for student to run the program and start note-taking.
 References: https://levelup.gitconnected.com/build-a-note-taking-app-with-mysql-backend-in-python-927b4c5fad91
+https://realpython.com/python-gui-tkinter/#displaying-clickable-buttons-with-button-widgets
+https://stackoverflow.com/questions/4236182/generate-tkinter-buttons-dynamically
+https://www.studytonight.com/tkinter/text-editor-application-using-tkinter
+
 """
 
 """
