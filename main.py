@@ -25,20 +25,22 @@ def createTable(conn, book):
     createDatabase(conn)
     conn.database = "db_notes"
     mycursor = conn.cursor()
+    book = book.replace(" ","あ")
+    print("!!!!!!!","CREATE TABLE IF NOT EXISTS "+str(book)+" (title VARCHAR(2000), chapter VARCHAR(2000), notes VARCHAR(2000), question VARCHAR(2000))")
     query = "CREATE TABLE IF NOT EXISTS "+str(book)+" (title VARCHAR(2000), chapter VARCHAR(2000), notes VARCHAR(2000), question VARCHAR(2000))"
     mycursor.execute(query)
     
 # small test
-#bookinput = "fakebook"
+#bookinput = "m a ybe"
 #createTable(conn, bookinput)
 
 
 # add note function so that we can insert data into the database
 
 def addNote(conn,table,chapter,notes, question):
-    title = table
     conn.database = "db_notes"
     mycursor = conn.cursor()
+    table = table.replace(" ","あ")
     query = "INSERT INTO "+str(table)+" (title,chapter,notes,question) VALUES (%s,%s,%s,%s)"
     val = (table,chapter,notes, question)
     mycursor.execute(query, val)
@@ -112,7 +114,7 @@ def deleteBook(conn,table):
     mycursor.execute(query)
     conn.commit()
 
-#createTable(conn, "maybe")
+#createTable(conn, "m a ybe")
 #createTable(conn, "maybe1")
 #createTable(conn, "maybe2")
 #deleteBook(conn, "maybe")
