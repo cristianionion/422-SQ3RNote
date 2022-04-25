@@ -109,6 +109,14 @@ def getTables(conn):
 
 #print(getTables(conn))
 
+books = getTables(conn)
+for i in range(len(books)):
+    #print(len(books))
+    #print(books[i][0])
+    print(selectAll(conn,books[i][0]))
+    print("\n")
+
+
 def db_convert_to_dictionary():
     book = getTables(conn)
     #print(book)
