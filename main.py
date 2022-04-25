@@ -1,4 +1,3 @@
-
 # import the sql driver
 import mysql.connector
 
@@ -113,6 +112,7 @@ for i in range(len(books)):
     #print(len(books))
     #print(books[i][0])
     print(selectAll(conn,books[i][0]))
+    print("\n")
 
 
 
