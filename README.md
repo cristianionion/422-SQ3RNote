@@ -1,6 +1,6 @@
 # ARA Project
-Created on: 4/24/2022
-Last modified date: 4/25/2022
+Created on: 4/24/2022<br/>
+Last modified date: 4/25/2022<br/>
 Group 4: Tiana Cook, Jake Follett, Cristian Ion, Wanrong Qi, Jack White.
 
    This program is designed to help guide a user through the SQ3R reading and note-taking process while taking notes on a text. It was built by Tiana Cook, Jake Follett, Cristian Ion, Wanrong Qi, and Jack White in April 2022 for CIS422 class project 1 at the University of Oregon. 
