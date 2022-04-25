@@ -1,6 +1,11 @@
 """
-This website was referenced when writing this code:
-https://levelup.gitconnected.com/build-a-note-taking-app-with-mysql-backend-in-python-927b4c5fad91
+ARA.py
+Group 4: Tiana Cook, Jake Follett, Cristian Ion, Wanrong Qi, Jack White.
+Created on: 4/10/2022
+Last modified on: 4/25/2022
+Description: This is the code for student to run the program and start note-taking.
+References: https://levelup.gitconnected.com/build-a-note-taking-app-with-mysql-backend-in-python-927b4c5fad91
+
 """
 
 
@@ -12,6 +17,7 @@ from main import *
 
 
 def book_Menu():
+    
     # root: the root of our tkinter windows
     global book_dict
     global chapter_dict
