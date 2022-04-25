@@ -130,9 +130,10 @@ def db_convert_to_dictionary():
             chapter_key = chapters[1]
             chapter_notes_questions = (chapters[2], chapters[3])
             chapter_dict[chapter_key] = chapter_notes_questions
+        book_name = book_name.replace("あ", " ")
         book_dict[book_name] = chapter_dict
     return book_dict
 
-#print(db_convert_to_dictionary())
+print(db_convert_to_dictionary())
 
 

@@ -60,7 +60,7 @@ def book_Menu():
 
     # book_list: list of all book keys (titles)
     book_list = book_dict.keys()
-    print(book_list)
+    #print(book_list)
 
     # goes thru book_list, creating a button for every book title
     for item in book_list:
@@ -143,6 +143,9 @@ def book_name():
 
    string= entry.get()
    book = string
+   if book != None:
+       book_with_space = book.replace(" ", "あ")
+   #print(book)
    if book in book_dict:
        small.destroy()
        same_error_Input()
@@ -151,7 +154,7 @@ def book_name():
           small.destroy()
           book_Menu_add_new_button(book)
           new_chapter_Menu(book)
-          createTable(conn, book)
+          createTable(conn, book_with_space)
 
 def same_error_Input():
    global small
@@ -190,6 +193,7 @@ def delete_chapter(book_title, chapter_title):
     del book_dict[book_title][chapter_title]
 
     new.destroy()
+    deleteNote(conn, book_title, chapter_title)
 
     openBook(book_dict[book_title],book_title)
 
