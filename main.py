@@ -107,7 +107,7 @@ def deleteBook(conn,table):
     print(table)
     conn.database = "db_notes"
     mycursor = conn.cursor()
-    query = "DROP TABLE "+str(table)
+    query = "DROP TABLE IF EXISTS "+str(table)
     print(query)
     mycursor.execute(query)
     conn.commit()
@@ -115,7 +115,7 @@ def deleteBook(conn,table):
 #createTable(conn, "maybe")
 #createTable(conn, "maybe1")
 #createTable(conn, "maybe2")
-#deleteBook(conn, "maybe2")
+#deleteBook(conn, "maybe")
 
 
 
