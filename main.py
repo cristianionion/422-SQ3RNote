@@ -1,6 +1,12 @@
 """
-This website was referenced when writing this code:
-https://levelup.gitconnected.com/build-a-note-taking-app-with-mysql-backend-in-python-927b4c5fad91
+
+main.py
+Group 4: Tiana Cook, Jake Follett, Cristian Ion, Wanrong Qi, Jack White.
+Created on: 4/10/2022
+Last modified on: 4/25/2022
+Description: This is the code for admins to access the database
+References: https://levelup.gitconnected.com/build-a-note-taking-app-with-mysql-backend-in-python-927b4c5fad91
+
 """
 
 # import the sql driver
