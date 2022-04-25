@@ -25,8 +25,8 @@ def createTable(conn, book):
     mycursor.execute(query)
     
 # small test
-bookinput = "fakebook"
-createTable(conn, bookinput)
+#bookinput = "fakebook"
+#createTable(conn, bookinput)
 
 
 # add note function so that we can insert data into the database
@@ -113,7 +113,7 @@ def db_convert_to_dictionary():
     book = getTables(conn)
     #print(book)
     #print(len(book))
-    print(len(book))
+    #print(len(book))
     book_dict = {}
     if book == None:
         return book_dict
@@ -121,15 +121,15 @@ def db_convert_to_dictionary():
         chapter_dict = {}
         book_name = book[index][0]
         #print(book_name)
-        chapter_information = selectAll(conn, book_name)[0]
-        #print(chapter_information)
-        chapter_key = chapter_information[1]
-        #print(book_name)
-        chapter_notes_questions = (chapter_information[2], chapter_information[3])
-        #print(chapter_notes_questions)
-        #print(chapter_dict)
-        chapter_dict[chapter_key] = chapter_notes_questions
-        #print(chapter_dict)
+        #print(book_name[0])
+        #print(selectAll(conn, book_name))
+        all_the_chapters = selectAll(conn, book_name)
+        #print(len(all_the_chapters))
+        for chapters in all_the_chapters:
+            #print(chapters)
+            chapter_key = chapters[1]
+            chapter_notes_questions = (chapters[2], chapters[3])
+            chapter_dict[chapter_key] = chapter_notes_questions
         book_dict[book_name] = chapter_dict
     return book_dict
 
