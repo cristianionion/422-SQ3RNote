@@ -1,9 +1,13 @@
+"""
+This website was referenced when writing this code:
+https://levelup.gitconnected.com/build-a-note-taking-app-with-mysql-backend-in-python-927b4c5fad91
+"""
 
 # import the sql driver
 import mysql.connector
 
 #conn connects to the mysql server
-conn = mysql.connector.connect(host="localhost", port=3306, user="root", passwd="")
+conn = mysql.connector.connect(host="localhost", port=3306, user="root", passwd="passpass")
 
 # create the database if it does not exist
 def createDatabase(conn):

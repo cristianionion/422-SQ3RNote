@@ -1,3 +1,9 @@
+"""
+This website was referenced when writing this code:
+https://levelup.gitconnected.com/build-a-note-taking-app-with-mysql-backend-in-python-927b4c5fad91
+"""
+
+
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox, filedialog
