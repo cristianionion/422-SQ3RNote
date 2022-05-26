@@ -32,7 +32,6 @@ def createTable(conn, book):
     conn.database = "db_notes"
     mycursor = conn.cursor()
     book = book.replace(" ","あ")
-    print("!!!!!!!","CREATE TABLE IF NOT EXISTS "+str(book)+" (title VARCHAR(2000), chapter VARCHAR(2000), notes VARCHAR(2000), question VARCHAR(2000))")
     query = "CREATE TABLE IF NOT EXISTS "+str(book)+" (title VARCHAR(2000), chapter VARCHAR(2000), notes VARCHAR(2000), question VARCHAR(2000))"
     mycursor.execute(query)
 
@@ -84,6 +83,7 @@ def selectOne(conn,table, chapter):
 
 # function to delete notes in database
 def deleteNote(conn,table, chapter):
+    table = table.replace(" ","あ")
     conn.database = "db_notes"
     mycursor = conn.cursor()
     query = "DELETE FROM "+str(table)+" WHERE chapter = %s"
@@ -100,7 +100,6 @@ def deleteBook(conn,table):
     conn.commit()
 
 
-#deleteNote(conn,bookinput,"3")
 
 # function to display all tables (book titles) that are saved in the database
 def getTables(conn):
@@ -110,12 +109,7 @@ def getTables(conn):
     return mycursor.fetchall()
 
 
-books = getTables(conn)
-# prints out all database contents for admin to see in terminal
-for i in range(len(books)):
 
-    print(selectAll(conn,books[i][0]))
-    print("\n")
 
 
 def db_convert_to_dictionary():
